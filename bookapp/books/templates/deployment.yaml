@@ -1,0 +1,50 @@
+---
+# Source: books/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books
+  labels:
+    helm.sh/chart: books-0.1.0
+    app.kubernetes.io/name: books
+    app.kubernetes.io/instance: bookapp
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: books
+      app.kubernetes.io/instance: bookapp
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: books
+        app.kubernetes.io/instance: bookapp
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: books
+          envFrom:
+            - configMapRef:
+                name: books
+          securityContext:
+            {}
+          image: "tntk/prod/books:temptag"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /books/metrics
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /books/metrics
+              port: http
+          resources:
+            {}

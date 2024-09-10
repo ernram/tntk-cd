@@ -1,0 +1,22 @@
+---
+# Source: order/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+  labels:
+    helm.sh/chart: order-0.1.0
+    app.kubernetes.io/name: order
+    app.kubernetes.io/instance: bookapp
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: order
+    app.kubernetes.io/instance: bookapp
