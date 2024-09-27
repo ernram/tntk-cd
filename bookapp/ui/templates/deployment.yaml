@@ -38,15 +38,5 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            timeoutSeconds: 360
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            timeoutSeconds: 360
           resources:
             {}

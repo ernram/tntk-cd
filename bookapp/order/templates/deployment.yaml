@@ -26,25 +26,17 @@ spec:
       securityContext:
         {}
       containers:
-        - name: order
+        - name: order 
           securityContext:
             {}
           image: "tntk/prod/order:temptag"
           imagePullPolicy: IfNotPresent
           command: ["/bin/bash", "-c"]
-          args: ["alembic upgrade head && uvicorn order.main:app --host 0.0.0.0 --port 8001 --reload"]
+          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn order.main:app --host 0.0.0.0 --port 8001 --reload"]
           ports:
             - name: http
               containerPort: 8001
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /order/metrics
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /order/metrics
-              port: http
           resources:
             {}
           volumeMounts:
