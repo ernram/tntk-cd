@@ -40,10 +40,10 @@ spec:
           resources:
             {}
           volumeMounts:
-          - name: bookapp-configmap
+          - name: bookapp-secret
             mountPath: /code/.env
             subPath: .env
       volumes:
-      - name: bookapp-configmap
-        configMap:
-          name: bookapp-configmap
+      - name: bookapp-secret
+        secret:
+          secretName: bookapp-secret

@@ -1,12 +1,12 @@
 ---
-# Source: books/templates/deployment.yaml
+# Source: auth/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: books
+  name: auth
   labels:
-    helm.sh/chart: books-0.1.0
-    app.kubernetes.io/name: books
+    helm.sh/chart: auth-0.1.0
+    app.kubernetes.io/name: auth
     app.kubernetes.io/instance: bookapp
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
@@ -14,36 +14,36 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: books
+      app.kubernetes.io/name: auth
       app.kubernetes.io/instance: bookapp
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: books
+        app.kubernetes.io/name: auth
         app.kubernetes.io/instance: bookapp
     spec:
       serviceAccountName: default
       securityContext:
         {}
       containers:
-        - name: books
+        - name: auth
           securityContext:
             {}
-          image: "tntk/prod/books:temptag"
+          image: "tntk/prod/auth:temptag"
           imagePullPolicy: IfNotPresent
           command: ["/bin/bash", "-c"]
-          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn books.main:app --host 0.0.0.0 --port 8000 --reload"]
+          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn auth.main:app --host 0.0.0.0 --port 8002 --reload"]
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: 8002
               protocol: TCP
           resources:
             {}
           volumeMounts:
-          - name: bookapp-configmap
+          - name: bookapp-secret
             mountPath: /code/.env
             subPath: .env
       volumes:
-      - name: bookapp-configmap
-        configMap:
-          name: bookapp-configmap
+      - name: bookapp-secret
+        secret:
+          secretName: bookapp-secret
