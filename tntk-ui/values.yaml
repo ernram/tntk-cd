@@ -33,7 +33,6 @@ securityContext: {}
 
 
 nameOverride: ""
-fullnameOverride: ""
 
 global:
   nodeSelector: {}
@@ -45,3 +44,18 @@ global:
   service:
     type: ClusterIP
     port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+

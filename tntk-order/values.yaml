@@ -39,3 +39,16 @@ global:
   service:
     type: ClusterIP
     port: 80
+
+postgresql:
+  host: postgres
+  port: 5432
+  username: postgres
+  password: postgres
+  database: postgres
+
+redis:
+  host: redis
+
+rabbitmq:
+  host: rabbitmq
