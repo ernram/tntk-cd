@@ -1,17 +1,17 @@
-fullnameOverride: "books"
+fullnameOverride: "auth"
 replicaCount: 1
 
 image:
   repository: nginx
   pullPolicy: IfNotPresent
   tag: ""
-  
+
 serviceAccount:
   create: false
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8002
 
 resources: {}
 
@@ -26,7 +26,6 @@ podAnnotations: {}
 podSecurityContext: {}
 
 securityContext: {}
-
 
 
 global:

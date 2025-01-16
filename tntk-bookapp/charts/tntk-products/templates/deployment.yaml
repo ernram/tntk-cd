@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "order.fullname" . }}
+  name: {{ include "books.fullname" . }}
   labels:
-    {{- include "order.labels" . | nindent 4 }}
+    {{- include "books.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "order.selectorLabels" . | nindent 6 }}
+      {{- include "books.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "order.selectorLabels" . | nindent 8 }}
+        {{- include "books.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "order.serviceAccountName" . }}
+      serviceAccountName: {{ include "books.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -34,10 +34,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/bash", "-c"]
-          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn order.main:app --host 0.0.0.0 --port 8001 --reload"]
+          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn books.main:app --host 0.0.0.0 --port 8000 --reload"]
           ports:
             - name: http
-              containerPort: 8001
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

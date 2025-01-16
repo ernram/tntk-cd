@@ -1,14 +1,11 @@
 
-fullnameOverride: "ui"
+fullnameOverride: "order"
 replicaCount: 1
 
 image:
   repository: nginx
   pullPolicy: IfNotPresent
   tag: ""
-
-configmapData:
-  PORT: "80"
 
 serviceAccount:
   create: false
@@ -32,9 +29,6 @@ podSecurityContext: {}
 securityContext: {}
 
 
-nameOverride: ""
-fullnameOverride: ""
-
 global:
   nodeSelector: {}
 
@@ -45,3 +39,16 @@ global:
   service:
     type: ClusterIP
     port: 80
+
+postgresql:
+  host: postgres
+  port: 5432
+  username: postgres
+  password: postgres
+  database: postgres
+
+redis:
+  host: redis
+
+rabbitmq:
+  host: rabbitmq
