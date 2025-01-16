@@ -1,0 +1,110 @@
+# Specific settings for each sub-chart
+tntk-web:
+  fullnameOverride: "web"
+  replicaCount: 1
+  image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: ""
+  serviceAccount:
+    create: false
+  service:
+    type: ClusterIP
+    port: 80
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  configmapData:
+    PORT: "80"
+  ingress:
+    enabled: true
+    className: ""
+    annotations: {}
+    hosts:
+      - host: ""
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+
+tntk-orders:
+  fullnameOverride: "orders"
+  replicaCount: 1
+  image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: ""
+  serviceAccount:
+    create: false
+  service:
+    type: ClusterIP
+    port: 80
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  postgresql:
+    host: postgres
+    port: 5432
+    username: postgres
+    password: postgres
+    database: postgres
+  redis:
+    host: redis
+  rabbitmq:
+    host: rabbitmq
+
+tntk-auth:
+  fullnameOverride: "auth"
+  replicaCount: 1
+  image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: ""
+  serviceAccount:
+    create: false
+  service:
+    type: ClusterIP
+    port: 8002
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+
+tntk-products:
+  fullnameOverride: "products"
+  replicaCount: 1
+  image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: ""
+  serviceAccount:
+    create: false
+  service:
+    type: ClusterIP
+    port: 8000
+  resources: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
