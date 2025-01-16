@@ -7,13 +7,13 @@ appVersion: "1.0.0"
 dependencies:
   - name: tntk-auth
     version: "0.1.0"
-    repository: "file://charts/tntk-auth"
+    repository: "file://./tntk-auth"
   - name: tntk-products
     version: "0.1.0"
-    repository: "file://charts/tntk-products"
+    repository: "file://./tntk-products"
   - name: tntk-orders
     version: "0.1.0"
-    repository: "file://charts/tntk-orders"
+    repository: "file://./tntk-orders"
   - name: tntk-web  
     version: "0.1.0"
-    repository: "file://charts/tntk-web"
+    repository: "file://./tntk-web"
