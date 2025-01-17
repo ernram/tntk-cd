@@ -1,5 +1,7 @@
 fullnameOverride: "shared-resources"
 replicaCount: 1
+aws:
+  region: us-west-2
 
 global:
   nodeSelector: {}
@@ -8,46 +10,36 @@ global:
 
   affinity: {}
 
+  service:
+    port: 80
+
 ingress:
   enabled: true
   className: "alb"
-  annotations: 
-    alb.ingress.kubernetes.io/scheme: internet-facting
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{\"HTTP\": 80}, {\"HTTPS\": 443}]''
+    alb.ingress.kubernetes.io/listen-ports: '[{\"HTTP\": 80}, {\"HTTPS\": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: 443
+    # Add other annotations as needed
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    # kubernetes.io/tls-acme: "true"
+  
+  # TLS configuration
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+  # Ingress hosts configuration
   hosts:
-    - host: demo.projects.tentech.vok.today
+    - host: "argocd.test.com"
       paths:
-        - path: /books
-          pathType: Prefix
-          backend:
-            service:
-              name: books
-              port:
-                number: 8002
-        - path: /order
-          pathType: Prefix
-          backend:
-            service:
-              name: order
-              port:
-                number: 8001
-        - path: /auth
-          pathType: Prefix
-          backend:
-            service:
-              name: auth
-              port:
-                number: 8000
         - path: /
           pathType: Prefix
           backend:
             service:
-              name: ui
+              name: argocd-server
               port:
                 number: 80
-  tls: []
-#  - secretName: chart-example-tls
-#    hosts:
-#      - chart-example.local
