@@ -3,19 +3,19 @@ tntk-web:
   fullnameOverride: "web"
   replicaCount: 1
   image:
-    repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/tntk-web
+    repository: nginx
     pullPolicy: IfNotPresent
     tag: ""
   serviceAccount:
-    create: true
+    create: false
   service:
     type: ClusterIP
     port: 80
   resources: {}
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
-    maxReplicas: 10
+    maxReplicas: 100
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
@@ -24,7 +24,7 @@ tntk-web:
     PORT: "80"
   ingress:
     enabled: true
-    className: "alb"
+    className: ""
     annotations: {}
     hosts:
       - host: ""
@@ -37,19 +37,19 @@ tntk-orders:
   fullnameOverride: "orders"
   replicaCount: 1
   image:
-    repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/tntk-orders
+    repository: nginx
     pullPolicy: IfNotPresent
     tag: ""
   serviceAccount:
-    create: true
+    create: false
   service:
     type: ClusterIP
     port: 80
   resources: {}
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
-    maxReplicas: 10
+    maxReplicas: 100
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
@@ -69,19 +69,19 @@ tntk-auth:
   fullnameOverride: "auth"
   replicaCount: 1
   image:
-    repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/tntk-auth
+    repository: nginx
     pullPolicy: IfNotPresent
     tag: ""
   serviceAccount:
-    create: true
+    create: false
   service:
     type: ClusterIP
     port: 8002
   resources: {}
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
-    maxReplicas: 10
+    maxReplicas: 100
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
@@ -91,20 +91,67 @@ tntk-products:
   fullnameOverride: "products"
   replicaCount: 1
   image:
-    repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/tntk-products
+    repository: nginx
     pullPolicy: IfNotPresent
     tag: ""
   serviceAccount:
-    create: true
+    create: false
   service:
     type: ClusterIP
     port: 8000
   resources: {}
   autoscaling:
-    enabled: true
+    enabled: false
     minReplicas: 1
-    maxReplicas: 10
+    maxReplicas: 100
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
+
+shared-resources:
+  fullnameOverride: "shared-resources"
+  replicaCount: 1
+  aws:
+    region: us-east-2
+
+  global:
+    nodeSelector: {}
+
+    tolerations: []
+
+    affinity: {}
+
+    service:
+      port: 80
+
+  ingress:
+    enabled: true
+    className: "alb"
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/listen-ports: '[{\"HTTP\": 80}, {\"HTTPS\": 443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: 443
+      # Add other annotations as needed
+      # nginx.ingress.kubernetes.io/rewrite-target: /
+      # kubernetes.io/tls-acme: "true"
+    
+    # TLS configuration
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+    # Ingress hosts configuration
+    hosts:
+      - host: "argocd.test.com"
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80
