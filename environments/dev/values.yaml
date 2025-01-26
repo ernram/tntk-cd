@@ -24,7 +24,7 @@ tntk-web:
     PORT: "80"
   ingress:
     enabled: true
-    className: ""
+    className: "alb"
     annotations: {}
     hosts:
       - host: ""
