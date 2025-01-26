@@ -1,13 +1,13 @@
 # Specific settings for each sub-chart
 tntk-web:
-  fullnameOverride: "web"
+  fullnameOverride: "tntk-web-dev"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-web"
     pullPolicy: IfNotPresent
-    tag: "cad0ce8a9673cff970af063b6e3a6458f30b2271"
+    tag: ""
   serviceAccount:
-    create: false
+    create: true
   service:
     type: ClusterIP
     port: 80
@@ -15,7 +15,7 @@ tntk-web:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 10
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
@@ -27,20 +27,21 @@ tntk-web:
     className: ""
     annotations: {}
     hosts:
-      - host: ""
+      - host: "tntk-bookapp.ernestdevops.net"
         paths:
           - path: /
             pathType: ImplementationSpecific
     tls: []
+
 tntk-orders:
-  fullnameOverride: "orders"
+  fullnameOverride: "tntk-orders-dev"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-orders"
     pullPolicy: IfNotPresent
-    tag: "d787f2d7b0edfb61a34109a6fd6da9528d348428"
+    tag: ""
   serviceAccount:
-    create: false
+    create: true
   service:
     type: ClusterIP
     port: 80
@@ -48,7 +49,7 @@ tntk-orders:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 10
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
@@ -63,15 +64,16 @@ tntk-orders:
     host: redis
   rabbitmq:
     host: rabbitmq
+
 tntk-auth:
-  fullnameOverride: "auth"
+  fullnameOverride: "tntk-auth-dev"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-auth"
     pullPolicy: IfNotPresent
-    tag: "3ce083022b2ea1a54ff419eb2c8a016124dc142b"
+    tag: ""
   serviceAccount:
-    create: false
+    create: true
   service:
     type: ClusterIP
     port: 8002
@@ -79,20 +81,21 @@ tntk-auth:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 10
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
+
 tntk-products:
-  fullnameOverride: "products"
+  fullnameOverride: "tntk-products-dev"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-products"
     pullPolicy: IfNotPresent
-    tag: "ff8ef356c0e5ff9c71b34ab868d3e978a47272cc"
+    tag: ""
   serviceAccount:
-    create: false
+    create: true
   service:
     type: ClusterIP
     port: 8000
@@ -100,48 +103,8 @@ tntk-products:
   autoscaling:
     enabled: false
     minReplicas: 1
-    maxReplicas: 100
+    maxReplicas: 10
     targetCPUUtilizationPercentage: 80
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
-shared-resources:
-  fullnameOverride: "shared-resources"
-  replicaCount: 1
-  aws:
-    region: us-east-2
-  global:
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-    service:
-      port: 80
-  ingress:
-    enabled: true
-    className: "alb"
-    annotations:
-      kubernetes.io/ingress.class: alb
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/target-type: ip
-      alb.ingress.kubernetes.io/listen-ports: '[{\"HTTP\": 80}, {\"HTTPS\": 443}]'
-      alb.ingress.kubernetes.io/ssl-redirect: 443
-      # Add other annotations as needed
-      # nginx.ingress.kubernetes.io/rewrite-target: /
-      # kubernetes.io/tls-acme: "true"
-    # TLS configuration
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-
-    # Ingress hosts configuration
-    hosts:
-      - host: "argocd.test.com"
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: argocd-server
-                port:
-                  number: 80
