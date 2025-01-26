@@ -5,7 +5,7 @@ tntk-web:
   image:
     repository: nginx
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "cad0ce8a9673cff970af063b6e3a6458f30b2271"
   serviceAccount:
     create: false
   service:
