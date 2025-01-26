@@ -69,7 +69,7 @@ tntk-auth:
   image:
     repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-auth"
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "3ce083022b2ea1a54ff419eb2c8a016124dc142b"
   serviceAccount:
     create: true
   service:
