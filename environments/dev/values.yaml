@@ -32,14 +32,13 @@ tntk-web:
           - path: /
             pathType: ImplementationSpecific
     tls: []
-
 tntk-orders:
   fullnameOverride: "tntk-orders-dev"
   replicaCount: 1
   image:
     repository: "038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-orders"
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "d787f2d7b0edfb61a34109a6fd6da9528d348428"
   serviceAccount:
     create: true
   service:
@@ -64,7 +63,6 @@ tntk-orders:
     host: redis
   rabbitmq:
     host: rabbitmq
-
 tntk-auth:
   fullnameOverride: "tntk-auth-dev"
   replicaCount: 1
@@ -86,7 +84,6 @@ tntk-auth:
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
-
 tntk-products:
   fullnameOverride: "tntk-products-dev"
   replicaCount: 1
@@ -108,24 +105,17 @@ tntk-products:
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
-
-
 shared-resources:
   fullnameOverride: "shared-resources"
   replicaCount: 1
   aws:
     region: us-east-2
-  
   global:
     nodeSelector: {}
-  
     tolerations: []
-  
     affinity: {}
-  
     service:
       port: 80
-  
   ingress:
     enabled: true
     className: "alb"
@@ -138,13 +128,12 @@ shared-resources:
       # Add other annotations as needed
       # nginx.ingress.kubernetes.io/rewrite-target: /
       # kubernetes.io/tls-acme: "true"
-    
     # TLS configuration
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-  
+
     # Ingress hosts configuration
     hosts:
       - host: "argocd.test.com"
