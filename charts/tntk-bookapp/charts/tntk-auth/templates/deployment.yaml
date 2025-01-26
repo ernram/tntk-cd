@@ -44,7 +44,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bookapp-ps
-                  key: rds_endpoint
+                  key: rds_connection_string
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
