@@ -37,21 +37,39 @@ spec:
           args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn order.main:app --host 0.0.0.0 --port 8001 --reload"]
           env:
           - name: POSTGRES_USER
-            value: {{ .Values.postgresql.username | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: rds_username
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.postgresql.password | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: rds_password
           - name: POSTGRES_DB
-            value: {{ .Values.postgresql.database | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: rds_db_name
           - name: POSTGRES_HOST
-            value: {{ .Values.postgresql.host | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: rds_endpoint
           - name: POSTGRES_PORT
             value: {{ .Values.postgresql.port | quote }}
           - name: DATABASE_URL
             value: "postgresql://{{ .Values.postgresql.username }}:{{ .Values.postgresql.password }}@{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.database }}"
           - name: REDIS_HOST
-            value: {{ .Values.redis.host | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: redis_host
           - name: RABBITMQ_HOST
-            value: {{ .Values.rabbitmq.host | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: bookapp-external-secret
+                key: rabbitmq_host
           ports:
             - name: http
               containerPort: 8001
