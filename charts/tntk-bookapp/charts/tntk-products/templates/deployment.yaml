@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: bookapp-secret
         secret:
-          secretName: bookapp-secret
+          secretName: bookapp-external-secret
       {{- with .Values.global.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
