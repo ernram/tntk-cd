@@ -1,29 +1,15 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: bookapp-external-secret
+  name: bookapp-secret
 spec:
   refreshInterval: "15s"  # Added refresh interval
   secretStoreRef:
     name: parameterstore
     kind: ClusterSecretStore
   target:
-    name: bookapp-env-secret
+    name: bookapp-secret
     creationPolicy: Owner  # Added creation policy
-    template:
-      engineVersion: v2  # Added engine version
-      data:
-        .env: |
-          POSTGRES_USER={{ .rds_username }}
-          POSTGRES_PASSWORD={{ .rds_password }}
-          POSTGRES_DB={{ .rds_db_name }}
-          POSTGRES_HOST={{ .rds_endpoint }}
-          DATABASE_URL=postgresql://{{ .rds_username }}:{{ .rds_password }}@{{ .rds_endpoint }}/{{ .rds_db_name }}
-          POSTGRES_PORT=5432
-          REDIS_HOST={{ .redis_host }}
-          RABBITMQ_HOST={{ .rabbitmq_host }}
-          RABBITMQ_USERNAME={{ .rabbitmq_username }}
-          RABBITMQ_PASSWORD={{ .rabbitmq_password }}
   data:
     - secretKey: rds_username
       remoteRef:
