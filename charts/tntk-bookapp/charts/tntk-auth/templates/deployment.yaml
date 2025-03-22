@@ -67,11 +67,11 @@ spec:
                   key: rds_endpoint
             - name: POSTGRES_PORT
               value: "5432"
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: bookapp-secret
-                  key: secret_key
+            # - name: SECRET_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: bookapp-secret
+            #       key: secret_key
             - name: REDIS_HOST
               valueFrom:
                 secretKeyRef:
