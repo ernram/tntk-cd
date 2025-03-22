@@ -33,8 +33,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/bash", "-c"]
-          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn books.main:app --host 0.0.0.0 --port 8000 --reload"]
+          # command: ["/bin/bash", "-c"]
+          # args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn books.main:app --host 0.0.0.0 --port 8000 --reload"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
