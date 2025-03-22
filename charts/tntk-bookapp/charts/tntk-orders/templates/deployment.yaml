@@ -39,22 +39,22 @@ spec:
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: rds_username
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: rds_password
           - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: rds_db_name
           - name: POSTGRES_HOST
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: rds_endpoint
           - name: POSTGRES_PORT
             value: {{ .Values.postgresql.port | quote }}
@@ -63,12 +63,12 @@ spec:
           - name: REDIS_HOST
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: redis_host
           - name: RABBITMQ_HOST
             valueFrom:
               secretKeyRef:
-                name: bookapp-external-secret
+                name: bookapp-secret
                 key: rabbitmq_host
           ports:
             - name: http
