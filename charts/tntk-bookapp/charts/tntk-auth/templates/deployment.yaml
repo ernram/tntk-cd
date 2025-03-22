@@ -88,7 +88,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bookapp-secret
-                  key: rabbitmq_user
+                  key: rabbitmq_username
             - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
