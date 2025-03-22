@@ -44,7 +44,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bookapp-secret
-                  key: rds_endpoint
+                  key: rds_connection_string
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -64,7 +64,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: bookapp-secret
-                  key: rds_connection_string
+                  key: rds_endpoint
             - name: POSTGRES_PORT
               value: "5432"
             # - name: SECRET_KEY
