@@ -14,35 +14,27 @@ spec:
     - secretKey: rds_connection_string
       remoteRef:
         key: /dev/rds/connection_string
-        version: "1"
     - secretKey: rds_username
       remoteRef:
         key: /dev/rds/username
-        version: "1"  # Added version specification
     - secretKey: rds_password
       remoteRef:
         key: /dev/rds/password
-        version: "1"
     - secretKey: rds_db_name
       remoteRef:
         key: /dev/rds/db_name
-        version: "1"
     - secretKey: rds_endpoint
       remoteRef:
         key: /dev/rds/endpoint
-        version: "1"
     - secretKey: redis_host
       remoteRef:
         key: /dev/redis/endpoint
-        version: "1"
     - secretKey: rabbitmq_host
       remoteRef:
         key: /dev/rabbitmq/endpoint
     - secretKey: rabbitmq_username
       remoteRef:
         key: /dev/rabbitmq/username
-        version: "1"
     - secretKey: rabbitmq_password
       remoteRef:
         key: /dev/rabbitmq/password
-        version: "1"
