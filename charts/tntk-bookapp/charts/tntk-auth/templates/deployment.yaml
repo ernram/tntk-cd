@@ -33,8 +33,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # command: ["/bin/bash", "-c"]
-          # args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn auth.main:app --host 0.0.0.0 --port 8002 --reload"]
+          command: ["/bin/bash", "-c"]
+          args: ["export SECRET_KEY=$(openssl rand -hex 32) && alembic upgrade head && uvicorn auth.main:app --host 0.0.0.0 --port 8002 --reload"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -45,6 +45,62 @@ spec:
                 secretKeyRef:
                   name: bookapp-secret
                   key: rds_endpoint
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rds_username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rds_password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rds_db_name
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rds_endpoint
+            - name: POSTGRES_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rds_port
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: secret_key
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: redis_host
+            - name: RABBITMQ_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rabbitmq_host  
+            - name: RABBITMQ_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rabbitmq_port
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rabbitmq_user
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bookapp-secret
+                  key: rabbitmq_password
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
