@@ -83,10 +83,7 @@ spec:
                   name: bookapp-secret
                   key: rabbitmq_host  
             - name: RABBITMQ_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: bookapp-secret
-                  key: rabbitmq_port
+              value: "5672"
             - name: RABBITMQ_USER
               valueFrom:
                 secretKeyRef:
