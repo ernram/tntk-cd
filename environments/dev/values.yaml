@@ -3,7 +3,7 @@ tntk-web:
   fullnameOverride: "web"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-web
     pullPolicy: IfNotPresent
     tag: "cad0ce8a9673cff970af063b6e3a6458f30b2271"
   serviceAccount:
@@ -36,7 +36,7 @@ tntk-orders:
   fullnameOverride: "orders"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-orders
     pullPolicy: IfNotPresent
     tag: ""
   serviceAccount:
@@ -67,7 +67,7 @@ tntk-auth:
   fullnameOverride: "auth"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-auth
     pullPolicy: IfNotPresent
     tag: "817bc35721eedc25102b6b4b639e6d90d590c9be"
   serviceAccount:
@@ -88,7 +88,7 @@ tntk-products:
   fullnameOverride: "products"
   replicaCount: 1
   image:
-    repository: nginx
+    repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-products
     pullPolicy: IfNotPresent
     tag: "ff8ef356c0e5ff9c71b34ab868d3e978a47272cc"
   serviceAccount:
