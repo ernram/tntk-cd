@@ -38,7 +38,7 @@ tntk-orders:
   image:
     repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-orders
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "d787f2d7b0edfb61a34109a6fd6da9528d348428"
   serviceAccount:
     create: false
   service:
