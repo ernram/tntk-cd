@@ -5,7 +5,7 @@ tntk-web:
   image:
     repository: 038891198925.dkr.ecr.us-east-2.amazonaws.com/dev/tntk-web
     pullPolicy: IfNotPresent
-    tag: "cad0ce8a9673cff970af063b6e3a6458f30b2271"
+    tag: "b5a614c8bdc2598856ab774dc1779d04cb566afe"
   serviceAccount:
     create: false
   service:
