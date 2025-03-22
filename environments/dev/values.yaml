@@ -90,7 +90,7 @@ tntk-products:
   image:
     repository: nginx
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "ff8ef356c0e5ff9c71b34ab868d3e978a47272cc"
   serviceAccount:
     create: false
   service:
