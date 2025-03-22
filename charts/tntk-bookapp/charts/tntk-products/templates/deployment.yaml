@@ -42,13 +42,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - name: bookapp-env-secret
+          - name: bookapp-secret
             mountPath: /code/.env
             subPath: .env
       volumes:
       - name: bookapp-secret
         secret:
-          secretName: bookapp-external-secret
+          secretName: bookapp-env-secret
       {{- with .Values.global.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
