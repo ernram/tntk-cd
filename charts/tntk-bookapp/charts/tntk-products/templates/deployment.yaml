@@ -42,7 +42,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - name: bookapp-secret
+          - name: bookapp-env-secret
             mountPath: /code/.env
             subPath: .env
       volumes:
