@@ -32,7 +32,6 @@ tntk-web:
           - path: /
             pathType: ImplementationSpecific
     tls: []
-
 tntk-orders:
   fullnameOverride: "orders"
   replicaCount: 1
@@ -64,14 +63,13 @@ tntk-orders:
     host: redis
   rabbitmq:
     host: rabbitmq
-
 tntk-auth:
   fullnameOverride: "auth"
   replicaCount: 1
   image:
     repository: nginx
     pullPolicy: IfNotPresent
-    tag: ""
+    tag: "817bc35721eedc25102b6b4b639e6d90d590c9be"
   serviceAccount:
     create: false
   service:
@@ -86,7 +84,6 @@ tntk-auth:
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
-
 tntk-products:
   fullnameOverride: "products"
   replicaCount: 1
@@ -108,23 +105,17 @@ tntk-products:
   podAnnotations: {}
   podSecurityContext: {}
   securityContext: {}
-
 shared-resources:
   fullnameOverride: "shared-resources"
   replicaCount: 1
   aws:
     region: us-east-2
-
   global:
     nodeSelector: {}
-
     tolerations: []
-
     affinity: {}
-
     service:
       port: 80
-
   ingress:
     enabled: true
     className: "alb"
@@ -137,7 +128,6 @@ shared-resources:
       # Add other annotations as needed
       # nginx.ingress.kubernetes.io/rewrite-target: /
       # kubernetes.io/tls-acme: "true"
-    
     # TLS configuration
     tls: []
     #  - secretName: chart-example-tls
